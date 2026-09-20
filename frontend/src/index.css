@@ -1,9 +1,26 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Typefaces are loaded from node_modules in src/main.tsx:
+   Newsreader (display) and Archivo (interface). */
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Civilian Pulse brand */
+  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Newsreader Variable", Georgia, "Times New Roman", serif;
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-muted: var(--ink-muted);
+  --color-rule: var(--rule);
+  --color-signal: var(--signal);
+  --color-signal-ink: var(--signal-ink);
+  --color-band: var(--band);
+  --color-band-ink: var(--band-ink);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -42,6 +59,19 @@
 }
 
 :root {
+  /* Civilian Pulse: cool newsprint, blueprint ink, hi-vis signal.
+     Drawn from public-works signage and the public record, not magazine cream. */
+  --paper: #ecede8;
+  --paper-raised: #f6f6f2;
+  --ink: #141a2b;
+  --ink-soft: #39415a;
+  --ink-muted: #5c6580;
+  --rule: #d3d4cc;
+  --signal: #f2c200;
+  --signal-ink: #141a2b;
+  --band: #141a2b;
+  --band-ink: #ecede8;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -77,6 +107,17 @@
 }
 
 .dark {
+  --paper: #10131c;
+  --paper-raised: #181c28;
+  --ink: #e9eae4;
+  --ink-soft: #c3c7d3;
+  --ink-muted: #949bad;
+  --rule: #282d3b;
+  --signal: #f2c200;
+  --signal-ink: #141a2b;
+  --band: #e9eae4;
+  --band-ink: #141a2b;
+
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -120,5 +161,66 @@
   button,
   [role="button"] {
     cursor: pointer;
+  }
+  html {
+    scroll-behavior: smooth;
+    /* clears the sticky masthead when jumping to an anchor */
+    scroll-padding-top: 5.5rem;
+  }
+  ::selection {
+    background-color: var(--signal);
+    color: var(--signal-ink);
+  }
+}
+
+/* Display type wants tighter setting than the interface face. */
+.cp-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+
+/* One orchestrated entrance on the front page, nothing else. */
+@keyframes cp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cp-beat {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.72);
+  }
+}
+
+.cp-rise {
+  animation: cp-rise 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.cp-beat {
+  animation: cp-beat 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .cp-rise,
+  .cp-beat {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

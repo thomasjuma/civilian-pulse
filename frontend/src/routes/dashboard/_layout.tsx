@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/sidebar"
 import { isLoggedIn } from "@/hooks/useAuth"
 
-export const Route = createFileRoute("/_layout")({
-  component: Layout,
+export const Route = createFileRoute("/dashboard/_layout")({
+  component: DashboardLayout,
   beforeLoad: async () => {
     if (!isLoggedIn()) {
       throw redirect({
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/_layout")({
   },
 })
 
-function Layout() {
+function DashboardLayout() {
   return (
     <SidebarProvider>
       <AppSidebar />
