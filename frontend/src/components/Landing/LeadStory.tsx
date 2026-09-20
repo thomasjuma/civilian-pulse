@@ -16,7 +16,7 @@ export function LeadStory() {
     <section className="border-rule border-b" aria-labelledby="lead-headline">
       <div className="mx-auto max-w-6xl px-5 lg:px-8">
         <div className="grid gap-10 py-10 lg:grid-cols-12 lg:gap-12 lg:py-14">
-          <article className="lg:col-span-7">
+          <article className="lg:col-span-8">
             <p className="text-ink-muted cp-rise flex items-center gap-1.5 text-sm">
               <MapPin className="size-4" aria-hidden="true" />
               {leadDispatch.ward}
@@ -78,7 +78,7 @@ export function LeadStory() {
           </article>
 
           <aside
-            className="border-rule lg:col-span-5 lg:border-l lg:pl-12"
+            className="border-rule lg:col-span-4 lg:border-l lg:pl-8"
             aria-labelledby="live-heading"
           >
             <div className="flex items-baseline justify-between gap-4">

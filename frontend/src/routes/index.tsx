@@ -4,7 +4,10 @@ import "@fontsource-variable/archivo"
 import { createFileRoute } from "@tanstack/react-router"
 import { useState } from "react"
 
-import { DispatchGrid, DISPATCH_GRID_ID } from "@/components/Landing/DispatchGrid"
+import {
+  DISPATCH_GRID_ID,
+  DispatchGrid,
+} from "@/components/Landing/DispatchGrid"
 import { Footer } from "@/components/Landing/Footer"
 import { LeadStory } from "@/components/Landing/LeadStory"
 import { Masthead } from "@/components/Landing/Masthead"

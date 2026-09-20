@@ -1,8 +1,7 @@
 import { useMemo } from "react"
-
+import { DispatchCard } from "./DispatchCard"
 import type { Dispatch } from "./data"
 import { gridDispatches } from "./data"
-import { DispatchCard } from "./DispatchCard"
 
 export const DISPATCH_GRID_ID = "dispatches"
 

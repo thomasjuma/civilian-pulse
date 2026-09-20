@@ -21,10 +21,7 @@ export function PublishingSteps() {
 
         <ol className="mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-3">
           {publishingSteps.map((step, index) => (
-            <li
-              key={step.title}
-              className="border-signal-ink/25 border-t pt-5"
-            >
+            <li key={step.title} className="border-signal-ink/25 border-t pt-5">
               <span className="cp-display block text-2xl leading-none opacity-55">
                 {index + 1}
               </span>

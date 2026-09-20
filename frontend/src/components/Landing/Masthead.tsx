@@ -97,7 +97,10 @@ export function Masthead({
           <Link to="/login" className={cn(quietLink, "hidden px-2 sm:block")}>
             Log in
           </Link>
-          <Link to="/signup" className={cn(solidButton, "hidden sm:inline-flex")}>
+          <Link
+            to="/signup"
+            className={cn(solidButton, "hidden sm:inline-flex")}
+          >
             File a dispatch
           </Link>
 
@@ -111,7 +114,10 @@ export function Masthead({
             >
               <Menu className="size-5" />
             </SheetTrigger>
-            <SheetContent side="right" className="bg-paper text-ink border-rule">
+            <SheetContent
+              side="right"
+              className="bg-paper text-ink border-rule"
+            >
               <SheetHeader>
                 <SheetTitle className="cp-display text-ink text-left text-lg">
                   Civilian Pulse

@@ -107,7 +107,7 @@ export function PlaybackBar({
   return (
     <div className={cn("flex items-center gap-3", className)}>
       {src ? (
-        // biome-ignore lint/a11y/useMediaCaptions: transcripts ship with the episode, not as a track file
+        // biome-ignore lint: transcripts ship with the episode, not as a track file
         <audio
           ref={audioRef}
           src={src}

@@ -79,20 +79,20 @@ export function Footer() {
             <p className="text-ink font-semibold text-sm">Community</p>
             <ul className="mt-3 space-y-2.5 text-sm">
               <li>
-                <a
-                  href="#"
-                  className="text-ink-soft hover:text-ink transition-colors duration-150"
+                <button
+                  type="button"
+                  className="text-ink-soft hover:text-ink text-left transition-colors duration-150"
                 >
                   About
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-ink-soft hover:text-ink transition-colors duration-150"
+                <button
+                  type="button"
+                  className="text-ink-soft hover:text-ink text-left transition-colors duration-150"
                 >
                   GitHub
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -101,20 +101,20 @@ export function Footer() {
             <p className="text-ink font-semibold text-sm">Legal</p>
             <ul className="mt-3 space-y-2.5 text-sm">
               <li>
-                <a
-                  href="#"
-                  className="text-ink-soft hover:text-ink transition-colors duration-150"
+                <button
+                  type="button"
+                  className="text-ink-soft hover:text-ink text-left transition-colors duration-150"
                 >
                   Privacy
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-ink-soft hover:text-ink transition-colors duration-150"
+                <button
+                  type="button"
+                  className="text-ink-soft hover:text-ink text-left transition-colors duration-150"
                 >
                   Terms
-                </a>
+                </button>
               </li>
             </ul>
           </div>

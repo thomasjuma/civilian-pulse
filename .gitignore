@@ -19,3 +19,6 @@ env.bak/
 venv.bak/
 !.env.example
 !.env.local.example
+
+# Claude
+settings.local.json

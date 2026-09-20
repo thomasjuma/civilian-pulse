@@ -58,7 +58,8 @@ export interface MediaEpisode {
 
 export const leadDispatch: Dispatch = {
   slug: "jogoo-road-streetlights",
-  title: "The streetlights on Jogoo Road went out in March. Nobody has claimed them.",
+  title:
+    "The streetlights on Jogoo Road went out in March. Nobody has claimed them.",
   deck: "Four agencies say the poles are not theirs. Residents have walked home by phone torch for seven months, and the repair line in the ward budget was spent in April.",
   ward: "Ward 12, Jogoo Road",
   topics: ["Infrastructure", "Money"],
