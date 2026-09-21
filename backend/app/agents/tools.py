@@ -2,7 +2,7 @@ import logging
 
 from agents import function_tool
 
-from app.models import ArticleCreate
+from app.models.user import ArticleCreate
 from app.services.database_service import (
     get_pending_whatsapp_recipients,
     mark_whatsapp_summary_sent,

@@ -2,6 +2,7 @@ import warnings
 from typing import Literal, Self
 
 from pydantic import (
+    Field,
     EmailStr,
     HttpUrl,
     PostgresDsn,
@@ -97,5 +98,11 @@ class Settings(BaseSettings):
 
         return self
 
+    summary_job_interval_minutes: int = Field(default=10, alias="SUMMARY_JOB_INTERVAL_MINUTES")
+    summary_job_run_on_startup: bool = Field(default=False, alias="SUMMARY_JOB_RUN_ON_STARTUP")
+    source_urls: tuple[str, ...] = (
+        "https://www.oagkenya.go.ke",
+        "https://www.parliament.go.ke/the-national-assembly/house-business/bills",
+    )
 
 settings = Settings()  # type: ignore # ty: ignore[unused-ignore-comment]

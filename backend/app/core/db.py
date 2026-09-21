@@ -1,8 +1,9 @@
+from collections.abc import Generator
 from sqlmodel import Session, create_engine, select
 
 from app import crud
 from app.core.config import settings
-from app.models import User, UserCreate
+from app.models.user import User, UserCreate
 
 engine = create_engine(str(settings.DATABASE_URL), pool_pre_ping=True)
 
@@ -31,3 +32,7 @@ def init_db(session: Session) -> None:
             is_superuser=True,
         )
         user = crud.create_user(session=session, user_create=user_in)
+
+def get_db():
+    with Session(engine) as session:
+        yield session

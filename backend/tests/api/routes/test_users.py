@@ -320,7 +320,13 @@ def test_register_user(client: TestClient, db: Session) -> None:
     username = random_email()
     password = random_lower_string()
     full_name = random_lower_string()
-    data = {"email": username, "password": password, "full_name": full_name}
+    data = {
+        "email": username,
+        "password": password,
+        "full_name": full_name,
+        "whatsapp_number": "+254712345678",
+        "whatsapp_messaging_consent": True,
+    }
     r = client.post(
         f"{settings.API_V1_STR}/users/signup",
         json=data,
@@ -335,8 +341,31 @@ def test_register_user(client: TestClient, db: Session) -> None:
     assert user_db
     assert user_db.email == username
     assert user_db.full_name == full_name
+    assert user_db.whatsapp_number == "+254712345678"
+    assert user_db.whatsapp_messaging_consent is True
     verified, _ = verify_password(password, user_db.hashed_password)
     assert verified
+
+
+def test_register_user_requires_whatsapp_number(client: TestClient) -> None:
+    data = {
+        "email": random_email(),
+        "password": random_lower_string(),
+        "full_name": random_lower_string(),
+    }
+    response = client.post(f"{settings.API_V1_STR}/users/signup", json=data)
+    assert response.status_code == 422
+
+
+def test_register_user_rejects_invalid_whatsapp_number(client: TestClient) -> None:
+    data = {
+        "email": random_email(),
+        "password": random_lower_string(),
+        "full_name": random_lower_string(),
+        "whatsapp_number": "0712345678",
+    }
+    response = client.post(f"{settings.API_V1_STR}/users/signup", json=data)
+    assert response.status_code == 422
 
 
 def test_register_user_already_exists_error(client: TestClient) -> None:
@@ -346,6 +375,8 @@ def test_register_user_already_exists_error(client: TestClient) -> None:
         "email": settings.FIRST_SUPERUSER,
         "password": password,
         "full_name": full_name,
+        "whatsapp_number": "+254712345679",
+        "whatsapp_messaging_consent": False,
     }
     r = client.post(
         f"{settings.API_V1_STR}/users/signup",

@@ -1,7 +1,8 @@
+import re
 import uuid
 from datetime import UTC, datetime
 
-from pydantic import EmailStr
+from pydantic import EmailStr, field_validator
 from sqlalchemy import DateTime
 from sqlmodel import Field, Relationship, SQLModel
 
@@ -10,12 +11,35 @@ def get_datetime_utc() -> datetime:
     return datetime.now(UTC)
 
 
+E164_PATTERN = re.compile(r"^\+[1-9]\d{6,14}$")
+
+
+def normalize_whatsapp_number(value: str) -> str:
+    normalized = re.sub(r"[\s().-]", "", value)
+    if not E164_PATTERN.fullmatch(normalized):
+        raise ValueError(
+            "WhatsApp number must be a valid E.164 number (e.g. +254712345678)"
+        )
+    return normalized
+
+
 # Shared properties
 class UserBase(SQLModel):
     email: EmailStr = Field(unique=True, index=True, max_length=255)
     is_active: bool = True
     is_superuser: bool = False
     full_name: str | None = Field(default=None, max_length=255)
+    whatsapp_number: str | None = Field(
+        default=None, unique=True, index=True, max_length=16
+    )
+    whatsapp_messaging_consent: bool = False
+
+    @field_validator("whatsapp_number")
+    @classmethod
+    def validate_whatsapp_number(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        return normalize_whatsapp_number(value)
 
 
 # Properties to receive via API on creation
@@ -27,6 +51,13 @@ class UserRegister(SQLModel):
     email: EmailStr = Field(max_length=255)
     password: str = Field(min_length=8, max_length=128)
     full_name: str | None = Field(default=None, max_length=255)
+    whatsapp_number: str = Field(max_length=16)
+    whatsapp_messaging_consent: bool = False
+
+    @field_validator("whatsapp_number")
+    @classmethod
+    def validate_whatsapp_number(cls, value: str) -> str:
+        return normalize_whatsapp_number(value)
 
 
 # Properties to receive via API on update, all are optional
@@ -36,11 +67,29 @@ class UserUpdate(SQLModel):
     is_superuser: bool | None = None
     full_name: str | None = Field(default=None, max_length=255)
     password: str | None = Field(default=None, min_length=8, max_length=128)
+    whatsapp_number: str | None = Field(default=None, max_length=16)
+    whatsapp_messaging_consent: bool | None = None
+
+    @field_validator("whatsapp_number")
+    @classmethod
+    def validate_whatsapp_number(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        return normalize_whatsapp_number(value)
 
 
 class UserUpdateMe(SQLModel):
     full_name: str | None = Field(default=None, max_length=255)
     email: EmailStr | None = Field(default=None, max_length=255)
+    whatsapp_number: str | None = Field(default=None, max_length=16)
+    whatsapp_messaging_consent: bool | None = None
+
+    @field_validator("whatsapp_number")
+    @classmethod
+    def validate_whatsapp_number(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        return normalize_whatsapp_number(value)
 
 
 class UpdatePassword(SQLModel):

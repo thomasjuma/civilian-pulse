@@ -5,17 +5,16 @@ from dataclasses import dataclass
 from typing import Any
 
 from pydantic import BaseModel
+from sqlmodel import Session
+
+from app.core.db import engine, get_db
 
 from app.agents.tools import (
     save_article_summary_tool,
     send_whatsapp_summary_tool,
 )
-from app.models import ArticleCreate
-from app.services.database_service import (
-    get_pending_whatsapp_recipients,
-    mark_whatsapp_summary_sent,
-    save_article_summary,
-)
+from app.models.article import ArticleCreate
+from app.crud import create_article
 from app.services.whatsapp import WhatsAppClient
 
 logger = logging.getLogger(__name__)
@@ -87,9 +86,11 @@ async def _publish_without_openai(
 ) -> SummaryPublishResult:
     logger.info("Publishing document without OpenAI: source=%s title=%s", source, title)
     summary = _fallback_summary(full_text)
+    session = get_db()
     try:
-        article = save_article_summary(
-            ArticleCreate(
+        article = create_article(
+            session=session,
+            article_in=ArticleCreate(
                 title=title,
                 source=source,
                 source_url=source_url,
