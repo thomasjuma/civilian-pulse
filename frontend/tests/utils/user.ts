@@ -12,6 +12,8 @@ export async function signUpNewUser(
   await page.getByTestId("email-input").fill(email)
   await page.getByTestId("password-input").fill(password)
   await page.getByTestId("confirm-password-input").fill(password)
+  await page.getByTestId("whatsapp-number-input").fill("+254712345678")
+  await page.getByTestId("whatsapp-consent-checkbox").check()
   await page.getByRole("button", { name: "Sign Up" }).click()
   await page.goto("/login")
 }

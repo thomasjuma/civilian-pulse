@@ -10,11 +10,14 @@ const fillForm = async (
   email: string,
   password: string,
   confirm_password: string,
+  whatsapp_number = "+254712345678",
 ) => {
   await page.getByTestId("full-name-input").fill(full_name)
   await page.getByTestId("email-input").fill(email)
   await page.getByTestId("password-input").fill(password)
   await page.getByTestId("confirm-password-input").fill(confirm_password)
+  await page.getByTestId("whatsapp-number-input").fill(whatsapp_number)
+  await page.getByTestId("whatsapp-consent-checkbox").check()
 }
 
 const verifyInput = async (page: Page, testId: string) => {
@@ -31,6 +34,8 @@ test("Inputs are visible, empty and editable", async ({ page }) => {
   await verifyInput(page, "email-input")
   await verifyInput(page, "password-input")
   await verifyInput(page, "confirm-password-input")
+  await verifyInput(page, "whatsapp-number-input")
+  await expect(page.getByTestId("whatsapp-consent-checkbox")).not.toBeChecked()
 })
 
 test("Sign Up button is visible", async ({ page }) => {

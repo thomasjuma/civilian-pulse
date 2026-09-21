@@ -207,6 +207,14 @@ export type UserCreate = {
      */
     full_name?: string | null;
     /**
+     * Whatsapp Number
+     */
+    whatsapp_number?: string | null;
+    /**
+     * Whatsapp Messaging Consent
+     */
+    whatsapp_messaging_consent?: boolean;
+    /**
      * Password
      */
     password: string;
@@ -233,6 +241,14 @@ export type UserPublic = {
      */
     full_name?: string | null;
     /**
+     * Whatsapp Number
+     */
+    whatsapp_number?: string | null;
+    /**
+     * Whatsapp Messaging Consent
+     */
+    whatsapp_messaging_consent?: boolean;
+    /**
      * Id
      */
     id: string;
@@ -258,6 +274,14 @@ export type UserRegister = {
      * Full Name
      */
     full_name?: string | null;
+    /**
+     * Whatsapp Number
+     */
+    whatsapp_number: string;
+    /**
+     * Whatsapp Messaging Consent
+     */
+    whatsapp_messaging_consent?: boolean;
 };
 
 /**
@@ -284,6 +308,14 @@ export type UserUpdate = {
      * Password
      */
     password?: string | null;
+    /**
+     * Whatsapp Number
+     */
+    whatsapp_number?: string | null;
+    /**
+     * Whatsapp Messaging Consent
+     */
+    whatsapp_messaging_consent?: boolean | null;
 };
 
 /**
@@ -298,6 +330,14 @@ export type UserUpdateMe = {
      * Email
      */
     email?: string | null;
+    /**
+     * Whatsapp Number
+     */
+    whatsapp_number?: string | null;
+    /**
+     * Whatsapp Messaging Consent
+     */
+    whatsapp_messaging_consent?: boolean | null;
 };
 
 /**

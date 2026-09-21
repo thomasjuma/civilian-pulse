@@ -8,6 +8,7 @@ import { ArticleHeader } from "@/components/Article/ArticleHeader"
 import { ArticleMasthead } from "@/components/Article/ArticleMasthead"
 import { ArticleNewsletter } from "@/components/Article/ArticleNewsletter"
 import { ArticleSidebar } from "@/components/Article/ArticleSidebar"
+import { CommentsSection } from "@/components/Article/CommentsSection"
 import { RelatedDispatches } from "@/components/Article/RelatedDispatches"
 import { dispatches, getDispatch } from "@/components/Landing/data"
 import { Footer } from "@/components/Landing/Footer"
@@ -78,6 +79,7 @@ function DispatchDetail() {
           </div>
         </article>
 
+        <CommentsSection slug={slug} />
         <RelatedDispatches currentSlug={slug} dispatches={dispatches} />
         <ArticleNewsletter />
       </main>

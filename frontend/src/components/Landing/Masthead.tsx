@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router"
 import { Menu, Search, X } from "lucide-react"
 import { useEffect, useId, useRef, useState } from "react"
 
@@ -11,6 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
+import { AuthStatus } from "./AuthStatus"
 import { sections } from "./data"
 import { Wordmark } from "./Wordmark"
 
@@ -94,15 +94,7 @@ export function Masthead({
             </button>
           ) : null}
 
-          <Link to="/login" className={cn(quietLink, "hidden px-2 sm:block")}>
-            Log in
-          </Link>
-          <Link
-            to="/signup"
-            className={cn(solidButton, "hidden sm:inline-flex")}
-          >
-            File a dispatch
-          </Link>
+          <AuthStatus />
 
           <Sheet>
             <SheetTrigger
@@ -140,20 +132,7 @@ export function Masthead({
               </nav>
               <div className="mt-auto grid gap-3 p-4">
                 <SheetClose asChild>
-                  <Link to="/signup" className={solidButton}>
-                    File a dispatch
-                  </Link>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Link
-                    to="/login"
-                    className={cn(
-                      "border-rule text-ink inline-flex h-10 items-center justify-center rounded-sm border text-sm font-medium",
-                      focusRing,
-                    )}
-                  >
-                    Log in
-                  </Link>
+                  <AuthStatus />
                 </SheetClose>
               </div>
             </SheetContent>

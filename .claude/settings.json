@@ -2,7 +2,18 @@
   "permissions": {
     "allow": [
       "Bash(pkill -f \"vite\")",
-      "Bash(git commit -m 'Build public landing page for Civilian Pulse *)"
+      "Bash(git commit -m 'Build public landing page for Civilian Pulse *)",
+      "Bash(find /home/thomas/Desktop/Andela AI Bootcamp/civilian-pulse -type f -name \"*.ts\" -o -name \"*.tsx\" | head -50)",
+      "Read(//home/thomas/Desktop/**)",
+      "Bash(python -m pytest tests/services/test_twilio_service.py -v)",
+      "Bash(python -c \"from twilio.base.exceptions import TwilioRestException; import inspect; print\\(inspect.signature\\(TwilioRestException\\)\\)\")",
+      "Bash(python -m ruff check tests/services/test_twilio_service.py tests/services/conftest.py)",
+      "Bash(python -m mypy tests/services/test_twilio_service.py tests/services/conftest.py)",
+      "Bash(python -)",
+      "Read(//home/thomas/.claude/**)",
+      "Read(//home/thomas/Desktop/Andela AI Bootcamp/civilian-pulse/frontend/src/routes/dispatches/**)",
+      "Bash(uv run *)",
+      "Bash(bash scripts/generate-client.sh)"
     ],
     "ask": []
   },

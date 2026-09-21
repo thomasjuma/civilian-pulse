@@ -1,12 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  createFileRoute,
-  Link as RouterLink,
-  redirect,
-} from "@tanstack/react-router"
+import { createFileRoute, Link as RouterLink } from "@tanstack/react-router"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { AuthLayout } from "@/components/Common/AuthLayout"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
   FormControl,
@@ -18,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { LoadingButton } from "@/components/ui/loading-button"
 import { PasswordInput } from "@/components/ui/password-input"
-import useAuth, { isLoggedIn } from "@/hooks/useAuth"
+import useAuth from "@/hooks/useAuth"
 
 const formSchema = z
   .object({
@@ -31,6 +28,13 @@ const formSchema = z
     confirm_password: z
       .string()
       .min(1, { message: "Password confirmation is required" }),
+    whatsapp_number: z
+      .string()
+      .min(1, { message: "WhatsApp number is required" })
+      .regex(/^\+[1-9]\d{6,14}$/, {
+        message: "Enter a valid international number, e.g. +254712345678",
+      }),
+    whatsapp_messaging_consent: z.boolean(),
   })
   .refine((data) => data.password === data.confirm_password, {
     message: "The passwords don't match",
@@ -41,13 +45,6 @@ type FormData = z.infer<typeof formSchema>
 
 export const Route = createFileRoute("/signup")({
   component: SignUp,
-  beforeLoad: async () => {
-    if (isLoggedIn()) {
-      throw redirect({
-        to: "/",
-      })
-    }
-  },
   head: () => ({
     meta: [
       {
@@ -68,6 +65,8 @@ function SignUp() {
       full_name: "",
       password: "",
       confirm_password: "",
+      whatsapp_number: "",
+      whatsapp_messaging_consent: false,
     },
   })
 
@@ -124,6 +123,50 @@ function SignUp() {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="whatsapp_number"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>WhatsApp number</FormLabel>
+                  <FormControl>
+                    <Input
+                      data-testid="whatsapp-number-input"
+                      placeholder="+254712345678"
+                      type="tel"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="whatsapp_messaging_consent"
+              render={({ field }) => (
+                <FormItem className="flex items-start gap-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      data-testid="whatsapp-consent-checkbox"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="grid gap-1.5 leading-none">
+                    <FormLabel className="font-normal">
+                      I consent to receive WhatsApp messages from Civilian Pulse
+                    </FormLabel>
+                    <p className="text-muted-foreground text-sm">
+                      Leave this unchecked if you do not want messages from us.
+                    </p>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
